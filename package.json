@@ -1,0 +1,18 @@
+{
+  "name": "walker",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^3.1.0"
+  },
+  "dependencies": {
+    "babylonjs": "^5.27.0",
+    "babylonjs-loaders": "^5.27.0"
+  }
+}
