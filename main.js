@@ -11,11 +11,17 @@ const materials =new Map([
   [ '1',{name:'stone',material:undefined, filename:'brickwall.jpg'}],
   [ '2',{name:'grass',material:undefined, filename:'grass.png'}],
   [ '3',{name:'sand',material:undefined, filename:'sand.jpg'}],
+  [ '4',{name:'mood',material:undefined, filename:'mood.jpg'}],
 ]);
 
 const fruitModels =new Map([
   [ 'a',{name:'apple',asset:undefined, filename:"apple.glb"}],
-  [ 'c',{name:'cherry',asset:undefined, filename:"peach2.glb"}],
+  [ 'c',{name:'cherry',asset:undefined, filename:"cherry.glb"}],
+  [ 'b',{name:'banana',asset:undefined, filename:"banana.glb"}],
+  [ 'p',{name:'peach',asset:undefined, filename:"peach2.glb"}],
+  [ 'k',{name:'kub',asset:undefined, filename:"kub.glb"}],
+  [ 'K',{name:'kub2',asset:undefined, filename:"kub2.glb"}],
+  [ 's',{name:'sphere',asset:undefined, filename:"sphere.glb"}]      
 ]);
 
 const monsterModels =new Map([
@@ -56,9 +62,13 @@ function keyUp(event){
   var key = event.key;
   switch(key){
     case 'a': player.movingLeft=false; break;
+    case 'ф': player.movingLeft=false; break;
     case 'd': player.movingRight=false; break;
+    case 'в': player.movingRight=false; break;
     case 's': player.jumping= false; break;
+    case 'ы': player.jumping= false; break;
     case 'w': player.jumping= false; break;
+    case 'ц': player.jumping= false; break;
     case ' ': player.shooting = false; break;
   }
 }
@@ -68,9 +78,13 @@ function keyDown(event){
   var key = event.key;
   switch(key){
     case 'a': player.movingLeft=true;player.movingRight=false;player.direction='left'; break;
+    case 'ф': player.movingLeft=true;player.movingRight=false;player.direction='left'; break;
     case 'd': player.movingLeft=false;player.movingRight=true;player.direction='right';break;
+    case 'в': player.movingLeft=false;player.movingRight=true;player.direction='right';break;
     case 's': player.jumping = false; break;
+    case 'ы': player.jumping = false; break;
     case 'w': if(!player.flying) player.jumping = true; break;
+    case 'ц': if(!player.flying) player.jumping = true; break;
     case ' ': player.shooting = true; break; 
   }
 }
@@ -212,7 +226,7 @@ async function createScene(){
 
   var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
   skyboxMaterial.backFaceCulling = false;
-  skyboxMaterial.reflectionTexture = new BABYLON.Texture("/textures/skybox2.jpg", scene,true,false);
+  skyboxMaterial.reflectionTexture = new BABYLON.Texture("/textures/sky2.jpg", scene,true,false);
   skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.EQUIRECTANGULAR_MODE;
   skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
   skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
@@ -237,7 +251,7 @@ async function createScene(){
   }
   cam.attachControl(canvas);
  
-  await fetchMap('./map3.map');
+  await fetchMap('./map4.map');
   console.log('everything loaded. generationg scene')
   //Загрузка материалов по таблице materials
   for(let m of materials.values()){
@@ -430,6 +444,11 @@ function loadMap(scene){
       case 'i':startPosition={x:col, y:linecount-line}; col++; break;
       case 'o':endPosition={x:col, y:linecount-line}; col++; break;
       case 'c':
+      case 'b':
+      case 'p':
+      case 'k':
+      case 'K':
+      case 's':
       case 'a':addObject(col,linecount-line, x,scene);col++; break;
       case 'm':addMonster(col,linecount-line, x,scene);col++; break; 
     }
